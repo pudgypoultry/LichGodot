@@ -1,0 +1,33 @@
+{
+  "Altar": {
+	"NAME": "Altar",
+	"DESCRIPTION": "Sacrifices must be made.",
+	"VALID_COMBOS": [2],
+	"RESULT_ARRAY": [
+			["Card:Death"]
+		],
+	"COOLDOWN_ARRAY": [5],
+	"VALID_TAGS": ["MINION", "DEFEATED_HERO"],
+	"RESOURCE_LOCATION" : "res://Scenes/StoneAltarComplete.tscn"
+  },
+  "TestBoxGroup": {
+	"NAME": "TestBoxGroup",
+	"DESCRIPTION": "This is a test. This test should work. If the test works we're all good.",
+	"VALID_COMBOS": [
+			1, 
+			2
+		],
+	"RESULT_ARRAY": 
+		[
+			["Card:Death", "Box:Altar"],
+			["Card:Earth", "Card:Death", "Card:Fire"]
+		],
+	"COOLDOWN_ARRAY": 
+		[
+			3,
+			5
+		],
+	"VALID_TAGS": ["COMPONENT", "MINION", "SPELL"],
+	"RESOURCE_LOCATION" : "Location"
+  }
+}

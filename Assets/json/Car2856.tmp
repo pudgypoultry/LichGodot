@@ -1,0 +1,74 @@
+{
+  "Earth": {
+	"NAME": "Earth",
+	"DESCRIPTION": "To soil we owe all, and it always claims its due.",
+	"PrimeID": 2,
+	"TAGS": "Earth, Magic, Element, Component"
+  },
+  "Water": {
+	"NAME": "Water",
+	"DESCRIPTION": "The depth, the pressure, the source of life, the unknown.",
+	"PrimeID": 3,
+	"TAGS": "Water, Magic, Element, Component"
+  },
+  "Sky": {
+	"NAME": "Sky",
+	"DESCRIPTION": "Twisters, lightning, hail, and monsoons from one vast, fickle mother.",
+	"PrimeID": 5,
+	"TAGS": "Sky, Magic, Element, Component"
+  },
+  "Fire": {
+	"NAME": "Fire",
+	"DESCRIPTION": "Burning all it beholds, separating steel from impurities, matter from energy.",
+	"PrimeID": 7,
+	"TAGS": "Fire, Magic, Element, Component"
+  },
+  "Space": {
+	"NAME": "Space",
+	"DESCRIPTION": "The stars and spheres in their infinite, lonely, wondrous beauty.",
+	"PrimeID": 11,
+	"TAGS": "Space, Magic, Element, Component"
+  },
+  "Mind": {
+	"NAME": "Mind",
+	"DESCRIPTION": "A vast warehouse, a priosn, a laboratory, an inland empire.",
+	"PrimeID": 13,
+	"TAGS": "Mind, Magic, Element, Component"
+  },
+  "Light": {
+	"NAME": "Light",
+	"DESCRIPTION": "A mote or a ripple, illumination and radiance.",
+	"PrimeID": 17,
+	"TAGS": "Light, Magic, Element, Component"
+  },
+  "Darkness": {
+	"NAME": "Darkness",
+	"DESCRIPTION": "A lack of light invites a wealth of insight.",
+	"PrimeID": 19,
+	"TAGS": "Darkness, Magic, Element, Component"
+  },
+  "Life": {
+	"NAME": "Life",
+	"DESCRIPTION": "Vitae, vigor, muscle, blood.",
+	"PrimeID": 23,
+	"TAGS": "Life, Magic, Element, Component"
+  },
+  "Soul": {
+	"NAME": "Soul",
+	"DESCRIPTION": "All that breathes has one, all that breathes no longer returns one.",
+	"PrimeID": 29,
+	"TAGS": "Soul, Magic, Element, Component"
+  },
+  "Time": {
+	"NAME": "Time",
+	"DESCRIPTION": "Tick. Tock. Tick. Tock.",
+	"PrimeID": 31,
+	"TAGS": "Time, Magic, Element, Component"
+  },
+  "Death": {
+	"NAME": "Death",
+	"DESCRIPTION": "Finality and decay, the end of one becomes the food of many.",
+	"PrimeID": 37,
+	"TAGS": "Death, Magic, Element, Component"
+  }
+}

@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://cucfpijt0tim4"]
+
+[ext_resource type="Script" path="res://Assets/Cards/Fire/Card_Fire.gd" id="1_evbye"]
+[ext_resource type="Texture2D" uid="uid://c0fcx3p65ml7k" path="res://Assets/Art/Cards/CardBack.png" id="2_66m5u"]
+[ext_resource type="Texture2D" uid="uid://u1fnjoks0ghx" path="res://Assets/Art/Cards/FireCards/Fire.png" id="3_g7bw7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a4kq7"]
+size = Vector3(1.01, 0.01, 1.618)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql3xd"]
+albedo_texture = ExtResource("2_66m5u")
+uv1_scale = Vector3(3.005, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prpgd"]
+material = SubResource("StandardMaterial3D_ql3xd")
+size = Vector3(1.01, 0.01, 1.618)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7u5u1"]
+albedo_texture = ExtResource("3_g7bw7")
+uv1_scale = Vector3(3.005, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_134ae"]
+material = SubResource("StandardMaterial3D_7u5u1")
+size = Vector3(1.01, 0.01, 1.618)
+
+[node name="Fire" type="Node3D" node_paths=PackedStringArray("mainCheckRay") groups=["Cards"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_evbye")
+cardName = "Fire"
+mainCheckRay = NodePath("StaticBody3D/PlacementCheck")
+placeHeightOffset = 0.151
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_a4kq7")
+
+[node name="PlacementCheck" type="RayCast3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.627705, 0)
+target_position = Vector3(0, -5, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="CardBack" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00231811, 0)
+mesh = SubResource("BoxMesh_prpgd")
+
+[node name="CardFront" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00577724, 0)
+mesh = SubResource("BoxMesh_134ae")
+
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="MouseExited"]

@@ -1,0 +1,44 @@
+{
+  "Test": {
+	"NAME": "Test",
+	"DESCRIPTION": "Testtesttesttest.",
+	"PrimeID": 1,
+	"TAGS": ["Test"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/BaseCard.tscn"
+  },
+  "Death": {
+	"NAME": "Death",
+	"DESCRIPTION": "Death is inevitable.",
+	"PrimeID": 2,
+	"TAGS": ["Death"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Death.tscn"
+  },
+  "Cough": {
+	"NAME": "Cough",
+	"DESCRIPTION": "You can no longer ignore what started as a tickle in your chest. Try as you might to suppress it, the scratching senation will eventually claw its way out.",
+	"PrimeID": 3,
+	"TAGS": ["Death"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Cough.tscn"
+  },
+  "Delirium": {
+	"NAME": "Delirium",
+	"DESCRIPTION": "Your thoughts feel distant, shuffled. Your hands shake in ways you aren't used to.",
+	"PrimeID": 5,
+	"TAGS": ["Death"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Delirium.tscn"
+  },
+  "Fatigue": {
+	"NAME": "Fatigue",
+	"DESCRIPTION": "Every task a mountain, every rest a drought.",
+	"PrimeID": 7,
+	"TAGS": ["Death"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Fatigue.tscn"
+  },
+  "Fever": {
+	"NAME": "Fever",
+	"DESCRIPTION": "You feel the tell-tale heat, headache, and nausea. You've seen this before, you know that death is inevitable.",
+	"PrimeID": 11,
+	"TAGS": ["Death"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Fever.tscn"
+  }
+}

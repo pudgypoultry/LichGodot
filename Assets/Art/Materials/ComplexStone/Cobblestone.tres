@@ -1,0 +1,25 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://bmwhx4l1evgmu"]
+
+[ext_resource type="Texture2D" uid="uid://bpo5o37wgiinx" path="res://Assets/Art/Materials/ComplexStone/Cobblestone_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bekakh5uga2av" path="res://Assets/Art/Materials/ComplexStone/Cobblestone_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cv2h60aw3asd2" path="res://Assets/Art/Materials/ComplexStone/Cobblestone_normal.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://d2rqcd7cdc81g" path="res://Assets/Art/Materials/ComplexStone/Cobblestone_heightmap.png" id="4"]
+
+[resource]
+albedo_color = Color(0.593692, 0.593692, 0.593692, 1)
+albedo_texture = ExtResource("1")
+roughness_texture = ExtResource("2")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3")
+ao_enabled = true
+ao_texture = ExtResource("2")
+heightmap_enabled = true
+heightmap_scale = 12.5
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("4")
+uv1_scale = Vector3(1.985, 1.985, 1.985)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 3.94169

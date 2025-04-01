@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr1ledwxbgy8y"]
+
+[ext_resource type="Script" path="res://Deck.gd" id="1_jyi1n"]
+[ext_resource type="PackedScene" uid="uid://qcwmwvpa6mlk" path="res://Assets/Cards/DeckVisual.tscn" id="3_jdueo"]
+
+[node name="Deck" type="Node3D" node_paths=PackedStringArray("deckVisual")]
+script = ExtResource("1_jyi1n")
+deckVisual = NodePath("DeckVisual")
+
+[node name="DeckVisual" parent="." instance=ExtResource("3_jdueo")]

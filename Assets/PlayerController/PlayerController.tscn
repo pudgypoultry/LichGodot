@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0iuor28kxsb2"]
+
+[ext_resource type="Script" path="res://Assets/PlayerController/PlayerController.gd" id="1_31aip"]
+
+[node name="PlayerController" type="Node3D" node_paths=PackedStringArray("cam", "mouseRay")]
+script = ExtResource("1_31aip")
+cam = NodePath("Camera3D")
+mouseRay = NodePath("Camera3D/MouseCollisionRay")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="MouseCollisionRay" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, -0.000784993, 0, 0.000784993, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -10)
+collision_mask = 8

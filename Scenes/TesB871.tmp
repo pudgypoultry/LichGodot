@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://bu126crb7hj2h"]
+
+[ext_resource type="PackedScene" uid="uid://g2x4cv68tlr5" path="res://Assets/Cards/BaseCard.tscn" id="1_82tcy"]
+[ext_resource type="PackedScene" uid="uid://c0iuor28kxsb2" path="res://Assets/PlayerController/PlayerController.tscn" id="3_vl382"]
+[ext_resource type="PackedScene" uid="uid://c8g8gi0ex3ejy" path="res://Assets/Art/Cards/EarthCards/Card_Earth.tscn" id="4_uk0ys"]
+[ext_resource type="PackedScene" uid="uid://cglbm82ojc4ga" path="res://Assets/UIScenes/PlayerUI.tscn" id="5_acfmy"]
+[ext_resource type="PackedScene" uid="uid://cb5x0ddifrj0m" path="res://Assets/Boxes/BoxGroup.tscn" id="6_1m33l"]
+[ext_resource type="PackedScene" uid="uid://t07sqtftup3e" path="res://Assets/Boxes/death_earth_fire_test.tscn" id="6_fb74l"]
+[ext_resource type="PackedScene" uid="uid://dkuetwrayjiq0" path="res://Assets/Art/Cards/DeathCards/Card_Death.tscn" id="7_kbu1l"]
+
+[sub_resource type="Environment" id="Environment_5uj17"]
+ambient_light_source = 2
+ambient_light_color = Color(0.472656, 0.472656, 0.472656, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osi4a"]
+albedo_color = Color(0.214844, 0.214844, 0.214844, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rdab4"]
+material = SubResource("StandardMaterial3D_osi4a")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a4kq7"]
+size = Vector3(1, 0.1, 1)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="PlayerController" parent="." instance=ExtResource("3_vl382")]
+transform = Transform3D(1, 0, 0, 0, 0.917699, 0.397276, 0, -0.397276, 0.917699, 0, 4.01953, 3.31671)
+
+[node name="Camera3D" parent="PlayerController" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.643563, 0.765393, 0, -0.765393, 0.643563, 0.0165272, 1.61222, 0.697935)
+
+[node name="PlayerUI" parent="." instance=ExtResource("5_acfmy")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5uj17")
+
+[node name="Board" type="Node3D" parent="."]
+transform = Transform3D(11.0331, 0, 0, 0, 1, 0, 0, 0, 11.0331, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Board"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Board/StaticBody3D"]
+mesh = SubResource("BoxMesh_rdab4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/StaticBody3D"]
+shape = SubResource("BoxShape3D_a4kq7")
+
+[node name="Card" parent="." instance=ExtResource("1_82tcy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.42282, 0.151278, 0)
+cardName = "Fire"
+cardType = 2
+
+[node name="Card2" parent="." instance=ExtResource("1_82tcy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.926596, 0.151278, 0)
+cardName = "Fire"
+cardType = 2
+
+[node name="Earth" parent="." instance=ExtResource("4_uk0ys")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.42282, 0.151278, 2.06942)
+
+[node name="BoxGroupTest" parent="." instance=ExtResource("6_1m33l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.445, 0.073, -2.80154)
+boxGroupName = "Altar"
+pickupHeightOffset = 1.0
+
+[node name="DeathEarthFireTest" parent="." instance=ExtResource("6_fb74l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.445, 0.073, 1.12642)
+boxGroupName = "TestBoxGroup"
+
+[node name="Death" parent="." instance=ExtResource("7_kbu1l")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.926596, 0.151278, 2)
+
+[editable path="PlayerController"]

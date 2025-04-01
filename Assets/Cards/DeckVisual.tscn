@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://qcwmwvpa6mlk"]
+
+[ext_resource type="Script" path="res://Assets/Cards/DeckVisual.gd" id="1_53xm1"]
+[ext_resource type="Texture2D" uid="uid://c0fcx3p65ml7k" path="res://Assets/Art/Cards/CardBack.png" id="1_oggxt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ql3xd"]
+albedo_texture = ExtResource("1_oggxt")
+uv1_scale = Vector3(3.005, 2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bku6u"]
+material = SubResource("StandardMaterial3D_ql3xd")
+size = Vector3(1.01, 0.01, 1.618)
+
+[node name="DeckVisual" type="Node3D"]
+script = ExtResource("1_53xm1")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="CardBack" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack10" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+mesh = SubResource("BoxMesh_bku6u")
+
+[node name="CardBack11" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_bku6u")
+skeleton = NodePath("")
+
+[node name="CardBack12" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+mesh = SubResource("BoxMesh_bku6u")
+skeleton = NodePath("")
+
+[node name="CardBack13" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)
+mesh = SubResource("BoxMesh_bku6u")
+skeleton = NodePath("")
+
+[node name="CardBack14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, 0)
+mesh = SubResource("BoxMesh_bku6u")
+skeleton = NodePath("")
+
+[node name="CardBack15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("BoxMesh_bku6u")
+skeleton = NodePath("")

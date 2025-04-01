@@ -1,0 +1,109 @@
+[gd_scene load_steps=4 format=3 uid="uid://cglbm82ojc4ga"]
+
+[ext_resource type="Texture2D" uid="uid://dxdjg0j3h4t7a" path="res://Assets/Art/UI/ScrollEndUI.png" id="1_fww45"]
+[ext_resource type="Texture2D" uid="uid://hfmhslj2vwub" path="res://Assets/Art/UI/ScrollUI.png" id="1_kskgq"]
+[ext_resource type="Script" path="res://Assets/UIScenes/UIManager.gd" id="1_lku71"]
+
+[node name="PlayerUI" type="Control" node_paths=PackedStringArray("nameLabel", "descriptionLabel", "typeLabels")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_lku71")
+nameLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/Name")
+descriptionLabel = NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/Description")
+typeLabels = [NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags/Tag1"), NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags/Tag2"), NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags/Tag3"), NodePath("MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags/Tag4")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(575, 150)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollEndLeft" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 189)
+layout_mode = 2
+texture = ExtResource("1_fww45")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+z_index = 1
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 2
+
+[node name="Name" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+text = "Current Card"
+horizontal_alignment = 1
+
+[node name="CardStats" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+
+[node name="Description" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "This is test text, every card should file this box with information"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CardTags" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Tag1" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags"]
+layout_mode = 2
+text = "Tag 1"
+horizontal_alignment = 1
+
+[node name="Tag2" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags"]
+layout_mode = 2
+text = "Tag 2"
+horizontal_alignment = 1
+
+[node name="Tag3" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags"]
+layout_mode = 2
+text = "Tag 3"
+horizontal_alignment = 1
+
+[node name="Tag4" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/CardStats/CardTags"]
+layout_mode = 2
+text = "Tag 4"
+horizontal_alignment = 1
+
+[node name="ScrollEndRight" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(25, 189)
+layout_mode = 2
+texture = ExtResource("1_fww45")
+
+[node name="ScrollBack" type="TextureRect" parent="MarginContainer"]
+z_index = -1
+custom_minimum_size = Vector2(530, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_kskgq")

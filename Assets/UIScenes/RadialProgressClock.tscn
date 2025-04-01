@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8h5fkqwa0t6t"]
+
+[ext_resource type="Script" path="res://Assets/UIScenes/RadialProgressClock.gd" id="1_cdnml"]
+[ext_resource type="Texture2D" uid="uid://bwh5dvb4prcba" path="res://Assets/Art/UI/TimerRing.png" id="1_jlh2m"]
+
+[node name="CenterContainer" type="CenterContainer" node_paths=PackedStringArray("progressCircle", "stopwatch", "timer")]
+custom_minimum_size = Vector2(300, 300)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cdnml")
+progressCircle = NodePath("RadialTimer")
+stopwatch = NodePath("CenterContainer/Label")
+timer = NodePath("Timer")
+
+[node name="RadialTimer" type="TextureProgressBar" parent="."]
+layout_mode = 2
+value = 100.0
+rounded = true
+fill_mode = 4
+texture_progress = ExtResource("1_jlh2m")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 126
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

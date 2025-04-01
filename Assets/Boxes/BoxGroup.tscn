@@ -1,0 +1,100 @@
+[gd_scene load_steps=13 format=3 uid="uid://cb5x0ddifrj0m"]
+
+[ext_resource type="Script" path="res://Assets/Boxes/BoxGroup.gd" id="1_g0tso"]
+[ext_resource type="PackedScene" uid="uid://bo818rbhraqkn" path="res://Assets/Boxes/BaseBox.tscn" id="2_ns35o"]
+[ext_resource type="PackedScene" uid="uid://c8h5fkqwa0t6t" path="res://Assets/UIScenes/RadialProgressClock.tscn" id="3_c3u6h"]
+[ext_resource type="PackedScene" uid="uid://66jivi1gm4d1" path="res://Assets/Boxes/RewardSpawner.tscn" id="4_jatqr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l8dj4"]
+albedo_color = Color(0.0081474, 0, 0.664063, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vpj8l"]
+material = SubResource("StandardMaterial3D_l8dj4")
+size = Vector3(5, 0.2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_icuq7"]
+size = Vector3(5, 0.2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2r47u"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aj4u7"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_a2ak5"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jfoj5"]
+resource_local_to_scene = true
+transparency = 1
+no_depth_test = true
+albedo_texture = SubResource("ViewportTexture_a2ak5")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tbr0o"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_jfoj5")
+orientation = 1
+
+[node name="BoxGroupTest" type="Node3D" node_paths=PackedStringArray("boxes", "executeButton", "progressBar", "progressBarMesh", "rewardSpawner", "mainCheckRay")]
+script = ExtResource("1_g0tso")
+boxGroupName = "TestBoxGroup"
+boxes = [NodePath("Box1"), NodePath("Box2"), NodePath("Box3")]
+executeButton = NodePath("StaticBody3D/ExecuteButton")
+progressBar = NodePath("SubViewport/CenterContainer")
+progressBarMesh = NodePath("TimerMesh")
+rewardSpawner = NodePath("RewardSpawner")
+mainCheckRay = NodePath("PlacementCheck")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+gui_disable_input = true
+
+[node name="CenterContainer" parent="SubViewport" instance=ExtResource("3_c3u6h")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_vpj8l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_icuq7")
+
+[node name="ExecuteButton" type="Area3D" parent="StaticBody3D"]
+transform = Transform3D(0.60041, 0, 0, 0, 0.60041, 0, 0, 0, 0.60041, 0, 0, 1.63869)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/ExecuteButton"]
+mesh = SubResource("BoxMesh_2r47u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/ExecuteButton"]
+shape = SubResource("BoxShape3D_aj4u7")
+
+[node name="UIChecker" type="RayCast3D" parent="."]
+target_position = Vector3(0, 5, 0)
+collision_mask = 8
+
+[node name="PlacementCheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, -5, 0)
+collision_mask = 2
+
+[node name="Box1" parent="." instance=ExtResource("2_ns35o")]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 2.25, -1.5, 0.039, 0)
+
+[node name="Box2" parent="." instance=ExtResource("2_ns35o")]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 2.25, 0, 0.039, 0)
+
+[node name="Box3" parent="." instance=ExtResource("2_ns35o")]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 2.25, 1.5, 0.039, 0)
+
+[node name="TimerMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40963, 0)
+visible = false
+mesh = SubResource("QuadMesh_tbr0o")
+
+[node name="RewardSpawner" parent="." instance=ExtResource("4_jatqr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97365, 0)
+
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="MouseExited"]
+[connection signal="mouse_entered" from="StaticBody3D/ExecuteButton" to="." method="ExecuteReady"]
+[connection signal="mouse_exited" from="StaticBody3D/ExecuteButton" to="." method="ExecuteUnready"]

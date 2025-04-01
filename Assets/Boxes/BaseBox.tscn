@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo818rbhraqkn"]
+
+[ext_resource type="Script" path="res://Assets/Boxes/BaseBox.gd" id="1_tx1dh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_an055"]
+albedo_color = Color(0.120277, 0.304886, 0.53125, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yo5mm"]
+material = SubResource("StandardMaterial3D_an055")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a4kq7"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Box" type="Node3D" node_paths=PackedStringArray("slotPosition", "rayToUI", "mainCheckRay") groups=["Boxes"]]
+transform = Transform3D(1.25, 0, 0, 0, 1, 0, 0, 0, 2.25, 0, 0, 0)
+script = ExtResource("1_tx1dh")
+boxName = "TestBox"
+boxDescription = "This is a box meant to test things"
+slotPosition = NodePath("SlotPosition")
+validTypes = Array[int]([0])
+rayToUI = NodePath("UIChecker")
+mainCheckRay = NodePath("PlacementCheck")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 15
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_yo5mm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_a4kq7")
+
+[node name="SlotPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17848, 0)
+
+[node name="UIChecker" type="RayCast3D" parent="."]
+target_position = Vector3(0, 5, 0)
+collision_mask = 8
+
+[node name="PlacementCheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, -5, 0)
+collision_mask = 2
+
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="MouseExited"]
