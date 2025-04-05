@@ -20,7 +20,7 @@ var isSlotted : bool = false
 var lastLocation : Vector3
 var cardFront : MeshInstance3D
 static var resourceLocation = "res://Assets/Cards/BaseCard.tscn"
-
+@onready var cardMesh : MeshInstance3D = self.find_child("CardFront")
 
 @export_category("Debug")
 @export var startsInPlay : bool = false

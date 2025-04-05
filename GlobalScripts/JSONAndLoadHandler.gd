@@ -40,7 +40,7 @@ func GetBoxInfo(boxGroup : BoxGroup):
 		"RESULTS" : boxResultsDict[boxGroup.boxGroupName],
 		"COOLDOWNS" : boxCooldownDict[boxGroup.boxGroupName],
 		"VALID_TAGS" : boxValidTagsDict[boxGroup.boxGroupName],
-		"RESOURCE_LOCATION" : resourceLocationsDict["Box:" + boxGroup.cardName]
+		"RESOURCE_LOCATION" : resourceLocationsDict["Box:" + boxGroup.boxGroupName]
 	}
 	return boxStats
 

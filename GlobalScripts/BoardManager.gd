@@ -13,16 +13,16 @@ var standardPlacementHeight = 0.151
 var standardPickupHeight = 1
 var globalID = 0
 
-func _process(delta):
-	if Input.is_action_just_pressed("camUp"):
-		DrawTopCardToTable()
-		print("Cards ====> ", cards)
-		print("Deck  ====> ", playerDeck.deck)
-	if Input.is_action_just_pressed("camDown"):
-		if len(cards) > 0:
-			PutCardIntoDeck(0, cards[0])
-			print("Cards ====> ", cards)
-			print("Deck  ====> ", playerDeck.deck)
+#func _process(delta):
+	#if Input.is_action_just_pressed("camUp"):
+		#DrawTopCardToTable()
+		#print("Cards ====> ", cards)
+		#print("Deck  ====> ", playerDeck.deck)
+	#if Input.is_action_just_pressed("camDown"):
+		#if len(cards) > 0:
+			#PutCardIntoDeck(0, cards[0])
+			#print("Cards ====> ", cards)
+			#print("Deck  ====> ", playerDeck.deck)
 
 
 func CleanList(list):

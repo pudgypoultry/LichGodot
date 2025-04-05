@@ -1,8 +1,13 @@
-[gd_scene load_steps=15 format=4 uid="uid://b4u7jvxpxt5oo"]
+[gd_scene load_steps=25 format=4 uid="uid://b4u7jvxpxt5oo"]
 
 [ext_resource type="Script" path="res://Assets/Models/SacrificialAltar.gd" id="1_bxofr"]
 [ext_resource type="Material" uid="uid://bmwhx4l1evgmu" path="res://Assets/Art/Materials/ComplexStone/Cobblestone.tres" id="1_jydu8"]
+[ext_resource type="Material" uid="uid://bhibtglef3swt" path="res://Assets/Shaders/FireDissolve.tres" id="2_n0kbf"]
 [ext_resource type="Texture2D" uid="uid://dv5u08dm08g8u" path="res://Assets/Art/GeneralImages/SummoningCircle.png" id="2_u6kmw"]
+[ext_resource type="Script" path="res://Assets/Boxes/BaseBox.gd" id="4_1fywv"]
+[ext_resource type="PackedScene" uid="uid://66jivi1gm4d1" path="res://Assets/Boxes/RewardSpawner.tscn" id="5_umela"]
+[ext_resource type="PackedScene" uid="uid://c8h5fkqwa0t6t" path="res://Assets/UIScenes/RadialProgressClock.tscn" id="6_jhsa4"]
+[ext_resource type="PackedScene" uid="uid://bbq2tde8xf5t" path="res://Assets/Shaders/PyreShader.tscn" id="8_086oh"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_53k72"]
 load_path = "res://.godot/imported/Cobblestone_albedo.png-547063b6820bfb43d3b7c8ba43adc356.s3tc.ctex"
@@ -108,10 +113,36 @@ material = SubResource("StandardMaterial3D_fnyp7")
 height = 0.846356
 radius = 3.07372
 
-[node name="StoneAltarComplete" type="Node3D" node_paths=PackedStringArray("mainCheckRay")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_an055"]
+albedo_color = Color(0.120277, 0.304886, 0.53125, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y7oxk"]
+material = SubResource("StandardMaterial3D_an055")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i3bil"]
+height = 0.723208
+radius = 3.15465
+
+[sub_resource type="BoxMesh" id="BoxMesh_43kty"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jf8fh"]
+size = Vector3(1, 0.25, 1)
+
+[node name="StoneAltarComplete" type="Node3D" node_paths=PackedStringArray("fireParticles", "boxes", "executeButton", "progressBar", "progressBarMesh", "rewardSpawner", "mainCheckRay")]
 script = ExtResource("1_bxofr")
-boxGroupName = "SacrificialAltar"
+consumptionShader = ExtResource("2_n0kbf")
+fireParticles = NodePath("FireParticles")
+boxGroupName = "Sacrificial Altar"
+boxes = [NodePath("AltarBox")]
+executeButton = NodePath("ExecuteButton")
+progressBar = NodePath("SubViewport/CenterContainer")
+progressBarMesh = NodePath("MeshInstance3D")
+rewardSpawner = NodePath("RewardSpawner")
 mainCheckRay = NodePath("PlacementCheck")
+pickupHeightOffset = 1.0
+placeHeightOffset = 0.151
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -132,3 +163,61 @@ shape = SubResource("CylinderShape3D_rom3k")
 [node name="PlacementCheck" type="RayCast3D" parent="."]
 target_position = Vector3(0, -5, 0)
 collision_mask = 2
+
+[node name="AltarBox" type="Node3D" parent="." node_paths=PackedStringArray("slotPosition", "mainCheckRay") groups=["Boxes"]]
+script = ExtResource("4_1fywv")
+slotPosition = NodePath("SlotPosition")
+mainCheckRay = NodePath("PlacementCheck")
+pickupHeightOffset = 1.0
+placeHeightOffset = 0.151
+
+[node name="StaticBody3D" type="StaticBody3D" parent="AltarBox"]
+collision_layer = 15
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AltarBox/StaticBody3D"]
+mesh = SubResource("BoxMesh_y7oxk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AltarBox/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.452077, 0)
+shape = SubResource("CylinderShape3D_i3bil")
+
+[node name="SlotPosition" type="Marker3D" parent="AltarBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97581, 0)
+
+[node name="UIChecker" type="RayCast3D" parent="AltarBox"]
+target_position = Vector3(0, 5, 0)
+collision_mask = 8
+
+[node name="PlacementCheck" type="RayCast3D" parent="AltarBox"]
+target_position = Vector3(0, -5, 0)
+collision_mask = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="RewardSpawner" parent="." instance=ExtResource("5_umela")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97365, 0)
+
+[node name="ExecuteButton" type="Area3D" parent="."]
+transform = Transform3D(0.60041, 0, 0, 0, 0.60041, 0, 0, 0, 0.60041, 0, 0.107582, -4.18147)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ExecuteButton"]
+mesh = SubResource("BoxMesh_43kty")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExecuteButton"]
+shape = SubResource("BoxShape3D_jf8fh")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+gui_disable_input = true
+
+[node name="CenterContainer" parent="SubViewport" instance=ExtResource("6_jhsa4")]
+
+[node name="FireParticles" parent="." instance=ExtResource("8_086oh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59373, 0)
+
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="MouseExited"]
+[connection signal="mouse_entered" from="AltarBox/StaticBody3D" to="AltarBox" method="MouseEntered"]
+[connection signal="mouse_exited" from="AltarBox/StaticBody3D" to="AltarBox" method="MouseExited"]
+[connection signal="mouse_entered" from="ExecuteButton" to="." method="ExecuteReady"]
+[connection signal="mouse_exited" from="ExecuteButton" to="." method="ExecuteUnready"]

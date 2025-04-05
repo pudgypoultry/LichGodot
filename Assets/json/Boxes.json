@@ -1,13 +1,13 @@
 {
-  "Altar": {
-	"NAME": "Altar",
+  "Sacrificial Altar": {
+	"NAME": "Sacrificial Altar",
 	"DESCRIPTION": "Sacrifices must be made.",
 	"VALID_COMBOS": [2],
 	"RESULT_ARRAY": [
 			["Card:Death"]
 		],
 	"COOLDOWN_ARRAY": [5],
-	"VALID_TAGS": ["MINION", "DEFEATED_HERO"],
+	"VALID_TAGS": ["Minion", "DefeatedHero"],
 	"RESOURCE_LOCATION" : "res://Scenes/StoneAltarComplete.tscn"
   },
   "TestBoxGroup": {
@@ -27,7 +27,7 @@
 			3,
 			5
 		],
-	"VALID_TAGS": ["COMPONENT", "MINION", "SPELL"],
+	"VALID_TAGS": ["Component", "Minion", "Spell"],
 	"RESOURCE_LOCATION" : "Location"
   }
 }

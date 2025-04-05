@@ -40,5 +40,12 @@
 	"PrimeID": 11,
 	"TAGS": ["Death"],
 	"RESOURCE_LOCATION" : "res://Assets/Cards/Death/Card_Fever.tscn"
+  },
+  "Goblin": {
+	"NAME": "Goblin",
+	"DESCRIPTION": "Greedy, shortsighted, useful. Summoning a goblin is the simplest of magics.",
+	"PrimeID": 13,
+	"TAGS": ["Minion"],
+	"RESOURCE_LOCATION" : "res://Assets/Cards/Minions/Goblin/Card_Goblin.tscn"
   }
 }

@@ -9,11 +9,11 @@ signal card_consumed(box : Box, card : Card)
 @export_category("Game Rules")
 @export var boxName : String
 @export var boxDescription : String
+var validTags : Array
 
 @export_category("Plugging In Nodes")
 @export var currentCard : Card = null
 @export var slotPosition : Node3D
-@export var validTypes : Array[Card.CardType]
 @export var rayToUI : RayCast3D
 var hasCard : bool = false
 var currentGroup : BoxGroup = null
@@ -27,10 +27,21 @@ func _ready():
 
 # Check if the card that we are attempting to slot is a valid one based on tag
 func IsValidCard(cardToPlace : Card):
-	if cardToPlace.cardType in validTypes && canBeManipulated:
-		print(name, " is a valid card, allowed to dock")
+	var isValid = false
+	
+	for tag in cardToPlace.cardTags:
+		if tag in validTags:
+			isValid = true
+			break
+	
+	if isValid && canBeManipulated:
+		print_debug(cardToPlace.name, " is a valid card, allowed to dock")
 		return true
 	else:
+		print(name, " rejected ", cardToPlace.cardName)
+		print("	Here are its tags: ", cardToPlace.cardTags)
+		#TODO FIX
+		print("	Here my valid tags: ", cardToPlace.cardTags)
 		return false
 
 

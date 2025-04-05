@@ -9,6 +9,7 @@ enum ExecutionState {READY, EXECUTING, COMPLETE}
 @export var boxGroupName : String
 var boxGroupDescription : String
 var validTypes : Array[Card.CardType]
+var validTags : Array
 var validCombos : Array
 
 @export_category("Optional Setup")
@@ -34,7 +35,7 @@ var currentlyPresenting : bool = false
 
 static func MakeCopy(newBoxGroupName : String, newParent : Node3D) -> BoxGroup:
 	var instance = BoxGroup.new()
-	instance.cardName = newBoxGroupName
+	instance.boxGroupName = newBoxGroupName
 	newParent.add_child(instance)
 	return instance
 
@@ -58,33 +59,18 @@ func _ready():
 	validCombos = boxStats["VALID_COMBOS"]
 	resultArray = boxStats["RESULTS"]
 	cooldownArray = boxStats["COOLDOWNS"]
-	var typeStrings = boxStats["VALID_TAGS"]
-	for item in typeStrings:
-		# {NONE, COMPONENT, SPELL, MINION, LOCATION, DEATH}
-		match item:
-			"NONE":
-				validTypes.append(Card.CardType.NONE)
-			"COMPONENT":
-				validTypes.append(Card.CardType.COMPONENT)
-			"SPELL":
-				validTypes.append(Card.CardType.SPELL)
-			"MINION":
-				validTypes.append(Card.CardType.MINION)
-			"LOCATION":
-				validTypes.append(Card.CardType.LOCATION)
-			"DEATH":
-				validTypes.append(Card.CardType.DEATH)
+	validTags = boxStats["VALID_TAGS"]
 	print("===========================")
-	print(boxGroupDescription)
+	print("Box Group Description: ", boxGroupDescription)
 	print("===========================")
-	print(resultArray)
+	print("Result Array: ", resultArray)
 	print("===========================")
-	print(cooldownArray)
+	print("Cooldown Array: ", cooldownArray)
 	print("===========================")
-	print(validTypes)
+	print("Valid Tags: ", validTags)
 	print("===========================")
 	for box in boxes:
-		box.validTypes = validTypes
+		box.validTags = validTags
 		box.currentGroup = self
 		box.boxName = boxGroupName
 		box.boxDescription = boxGroupDescription
