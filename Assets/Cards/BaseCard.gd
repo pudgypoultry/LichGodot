@@ -10,13 +10,15 @@ signal card_spawned(card : Card)
 @export_category("Card Qualities")
 @export var cardName : String
 var cardDescription : String
-var cardTags : Array[String]
+var cardTags : Array
 var baseRank : int
 var cardType : CardType
 var cardPrimeID : int
 var currentRank : int
 var currentBox : Box = null
 var isSlotted : bool = false
+var isOnDeck : bool = false
+var addToBoard : bool = true
 var lastLocation : Vector3
 var cardFront : MeshInstance3D
 static var resourceLocation = "res://Assets/Cards/BaseCard.tscn"
@@ -37,24 +39,19 @@ func CopyThisCard() -> Card:
 
 
 func _ready():
-	BoardManager.AddCardToTable(self)
-	self.card_spawned.emit(self)
-	currentRank = baseRank
+	if addToBoard:
+		BoardManager.AddCardToTable(self)
+		self.card_spawned.emit(self)
 	var cardStats = JSONAndLoadHandler.GetCardInfo(self)
 	cardDescription = cardStats["DESCRIPTION"]
 	cardPrimeID = cardStats["PRIMEID"]
-	TransferArrayBecauseWTF(cardStats["TAGS"])
+	cardTags = cardStats["TAGS"]
 
 
 # Before I am deleted, I need to be unslotted if I am slotted
 func _exit_tree():
 	if currentBox != null:
 		currentBox.UnslotCard(self)
-
-
-func TransferArrayBecauseWTF(array : Array):
-	for item in array:
-		cardTags.append(item)
 
 
 func _process(delta):
@@ -82,6 +79,9 @@ Interactable Movement Management
 ====================================================="""
 
 func PickMeUp():
+	if isOnDeck:
+		isOnDeck = false
+		BoardManager.playerDeck.currentlyShowingCard = false
 	if currentBox != null:
 		UnslotMe(currentBox)
 	if currentlyOfferedAsReward:

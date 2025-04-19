@@ -1,21 +1,24 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbq2tde8xf5t"]
+[gd_scene load_steps=8 format=3 uid="uid://bbq2tde8xf5t"]
 
 [ext_resource type="Script" path="res://Assets/Shaders/PyreShader.gd" id="1_lstxm"]
-[ext_resource type="Shader" uid="uid://dueo30iybhxbn" path="res://Assets/Shaders/Pyre.tres" id="1_mhac2"]
-[ext_resource type="Texture2D" uid="uid://dwpqhkax2v1uk" path="res://Assets/Shaders/Voronoi01.png" id="2_7wdxk"]
-[ext_resource type="Texture2D" uid="uid://cwx7330yxqf1j" path="res://Assets/Shaders/Fire01.png" id="3_2x0df"]
-[ext_resource type="Texture2D" uid="uid://cetbrxqybngdh" path="res://Assets/Shaders/Fire02.png" id="4_2ytnt"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Flame01.gdshader" id="2_eko2e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_saexp"]
-render_priority = 0
-shader = ExtResource("1_mhac2")
-shader_parameter/IntParameter = 5
-shader_parameter/FloatParameter2 = 0.1
-shader_parameter/DissolveTiling = Vector2(0.25, 0.2)
-shader_parameter/DissolveSpeed = Vector2(0, 0.4)
-shader_parameter/FloatParameter = 0.393
-shader_parameter/MainTex = ExtResource("3_2x0df")
-shader_parameter/DissolveTexture = ExtResource("2_7wdxk")
+render_priority = 1
+shader = ExtResource("2_eko2e")
+shader_parameter/detail_strength = 1.5
+shader_parameter/scroll_speed = 0.4
+shader_parameter/fire_height = 1.01
+shader_parameter/fire_shape = 4.16
+shader_parameter/fire_thickness = 0.55
+shader_parameter/fire_sharpness = 0.945
+shader_parameter/intensity = 3.985
+shader_parameter/size = null
+shader_parameter/noise_octaves = 7
+shader_parameter/noise_lacunarity = 10.0
+shader_parameter/noise_gain = 0.6
+shader_parameter/noise_amplitude = 0.6
+shader_parameter/noise_frequency = 0.2
 
 [sub_resource type="Curve" id="Curve_pwieo"]
 _data = [Vector2(0.00733496, 0), 0.0, 0.0, 0, 0, Vector2(0.163814, 1), 0.0, 0.0, 0, 0, Vector2(0.838631, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -31,65 +34,13 @@ color = Color(4, 1.25, 0.6, 1)
 alpha_curve = SubResource("CurveTexture_l0hjc")
 
 [sub_resource type="QuadMesh" id="QuadMesh_vchqk"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_afn43"]
-render_priority = 0
-shader = ExtResource("1_mhac2")
-shader_parameter/IntParameter = 5
-shader_parameter/FloatParameter2 = 0.03
-shader_parameter/DissolveTiling = Vector2(1, 1)
-shader_parameter/DissolveSpeed = Vector2(0, 0)
-shader_parameter/FloatParameter = null
-shader_parameter/MainTex = ExtResource("4_2ytnt")
-shader_parameter/DissolveTexture = ExtResource("2_7wdxk")
-
-[sub_resource type="Curve" id="Curve_dbnax"]
-_data = [Vector2(0, 0), 0.0, 6.72186, 0, 0, Vector2(0.168704, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.87567, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_qf4v5"]
-curve = SubResource("Curve_dbnax")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hohbf"]
-emission_shape_scale = Vector3(0.4, 0.4, 0.4)
-emission_shape = 1
-emission_sphere_radius = 1.0
-angle_min = -90.0
-angle_max = 90.0
-gravity = Vector3(0, 3, 0)
-damping_min = 0.5
-damping_max = 1.0
-scale_min = 0.7
-scale_curve = SubResource("CurveTexture_qf4v5")
-color = Color(4, 1.25, 0.6, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_lw0uk"]
-
-[sub_resource type="Gradient" id="Gradient_3x6f7"]
-offsets = PackedFloat32Array(0, 0.540682, 0.637795, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_m4s08"]
-gradient = SubResource("Gradient_3x6f7")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s1hn7"]
-emission_shape_scale = Vector3(0.4, 0.4, 0.4)
-emission_shape = 1
-emission_sphere_radius = 1.0
-angle_min = -90.0
-angle_max = 90.0
-gravity = Vector3(0, 3, 0)
-damping_min = 0.5
-damping_max = 1.0
-scale_min = 0.75
-scale_max = 1.5
-scale_curve = SubResource("CurveTexture_qf4v5")
-color = Color(0, 0, 0, 1)
-color_ramp = SubResource("GradientTexture1D_m4s08")
+lightmap_size_hint = Vector2i(17, 17)
+size = Vector2(4, 4)
+center_offset = Vector3(0, 2, 0)
 
 [node name="FireParticles" type="Node3D" node_paths=PackedStringArray("particles")]
 script = ExtResource("1_lstxm")
-particles = [NodePath("StaticFlame"), NodePath("MovingFlame"), NodePath("Smoke")]
+particles = [NodePath("StaticFlame")]
 lifetime = 4.5
 
 [node name="StaticFlame" type="GPUParticles3D" parent="."]
@@ -100,20 +51,3 @@ lifetime = 5.0
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_0s8iv")
 draw_pass_1 = SubResource("QuadMesh_vchqk")
-
-[node name="MovingFlame" type="GPUParticles3D" parent="."]
-material_override = SubResource("ShaderMaterial_afn43")
-emitting = false
-amount = 20
-lifetime = 1.2
-process_material = SubResource("ParticleProcessMaterial_hohbf")
-draw_pass_1 = SubResource("QuadMesh_lw0uk")
-
-[node name="Smoke" type="GPUParticles3D" parent="."]
-sorting_offset = -1.0
-material_override = SubResource("ShaderMaterial_afn43")
-emitting = false
-amount = 20
-lifetime = 2.5
-process_material = SubResource("ParticleProcessMaterial_s1hn7")
-draw_pass_1 = SubResource("QuadMesh_lw0uk")

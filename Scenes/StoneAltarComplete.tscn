@@ -213,7 +213,7 @@ gui_disable_input = true
 [node name="CenterContainer" parent="SubViewport" instance=ExtResource("6_jhsa4")]
 
 [node name="FireParticles" parent="." instance=ExtResource("8_086oh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59373, 0)
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 0, 1.59373, 0)
 
 [connection signal="mouse_entered" from="StaticBody3D" to="." method="MouseEntered"]
 [connection signal="mouse_exited" from="StaticBody3D" to="." method="MouseExited"]

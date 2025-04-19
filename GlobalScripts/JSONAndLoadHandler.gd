@@ -12,6 +12,7 @@ var boxValidCombosDict : Dictionary = {}
 var boxCooldownDict : Dictionary = {}
 var boxValidTagsDict : Dictionary = {}
 var resourceLocationsDict : Dictionary = {}
+var cardFaceLocationsDict : Dictionary = {}
 
 
 func _ready():
@@ -26,7 +27,8 @@ func GetCardInfo(card : Card):
 		"DESCRIPTION" : cardDescriptionDict[card.cardName], 
 		"PRIMEID" : cardPrimeDict[card.cardName], 
 		"TAGS" : cardTagsDict[card.cardName],
-		"RESOURCE_LOCATION" : resourceLocationsDict["Card:" + card.cardName]
+		"RESOURCE_LOCATION" : resourceLocationsDict["Card:" + card.cardName],
+		"CARD_FACE" : cardFaceLocationsDict[card.cardName]
 	}
 	return cardStats
 
@@ -58,14 +60,16 @@ func LoadCardJSON(path : String):
 			if data is Dictionary:
 				for key in data.keys():
 					if "NAME" in data[key]:
+						var newValue = EratosthenesFromPoint(primeList)
+						cardPrimeDict[data[key]["NAME"]] = primeList[-1]
 						if "DESCRIPTION" in data[key]:
 							cardDescriptionDict[data[key]["NAME"]] = data[key]["DESCRIPTION"]
-						if "PrimeID" in data[key]:
-							cardPrimeDict[data[key]["NAME"]] = data[key]["PrimeID"]
 						if "TAGS" in data[key]:
 							cardTagsDict[data[key]["NAME"]] = data[key]["TAGS"]
 						if "RESOURCE_LOCATION" in data[key]:
 							resourceLocationsDict["Card:" + data[key]["NAME"]] = data[key]["RESOURCE_LOCATION"]
+						if "CARD_FACE" in data[key]:
+							cardFaceLocationsDict[data[key]["NAME"]] = data[key]["CARD_FACE"]
 				print("Extracted dictionary:", cardPrimeDict)  # Debugging output
 			else:
 				print("Error: JSON data is not a dictionary")
@@ -107,3 +111,37 @@ func LoadBoxJSON(path : String):
 			print("Error parsing JSON")
 	else:
 		print("Error opening file")
+
+
+"""=====================================================
+Auotmating Prime Number Assignment and Reading
+====================================================="""
+
+var primeList = []
+
+func EratosthenesFromPoint(listOfPreviousPrimes : Array):
+	if len(listOfPreviousPrimes) == 0:
+		primeList.append(2)
+		return 2
+	var lastPrime = listOfPreviousPrimes[-1]
+	var i = lastPrime + 1
+	var foundNewPrime = false
+	var moveToNext = false
+	while !foundNewPrime:
+		for prime in listOfPreviousPrimes:
+			if i % prime == 0:
+				moveToNext = true
+				break
+			if prime == listOfPreviousPrimes[-1]:
+				foundNewPrime = true
+		if moveToNext && !foundNewPrime:
+			i += 1
+	primeList.append(i)
+	return i
+
+
+func TranslateCardsToPrimeFactorization(listOfCardNames):
+	var primeProduct = 1
+	for cardName in listOfCardNames:
+		primeProduct *= cardPrimeDict[cardName]
+	return primeProduct

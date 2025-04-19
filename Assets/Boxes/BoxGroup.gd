@@ -56,7 +56,9 @@ func _ready():
 	placeHeightOffset = position.y
 	var boxStats = JSONAndLoadHandler.GetBoxInfo(self)
 	boxGroupDescription = boxStats["DESCRIPTION"]
-	validCombos = boxStats["VALID_COMBOS"]
+	# validCombos = boxStats["VALID_COMBOS"]
+	for combo in boxStats["VALID_COMBOS"]:
+		validCombos.append(JSONAndLoadHandler.TranslateCardsToPrimeFactorization(combo))
 	resultArray = boxStats["RESULTS"]
 	cooldownArray = boxStats["COOLDOWNS"]
 	validTags = boxStats["VALID_TAGS"]
@@ -67,7 +69,7 @@ func _ready():
 	print("===========================")
 	print("Cooldown Array: ", cooldownArray)
 	print("===========================")
-	print("Valid Tags: ", validTags)
+	print("Valid Combos: ", validCombos)
 	print("===========================")
 	for box in boxes:
 		box.validTags = validTags

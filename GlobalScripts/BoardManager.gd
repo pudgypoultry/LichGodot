@@ -13,16 +13,16 @@ var standardPlacementHeight = 0.151
 var standardPickupHeight = 1
 var globalID = 0
 
-#func _process(delta):
-	#if Input.is_action_just_pressed("camUp"):
-		#DrawTopCardToTable()
-		#print("Cards ====> ", cards)
-		#print("Deck  ====> ", playerDeck.deck)
-	#if Input.is_action_just_pressed("camDown"):
-		#if len(cards) > 0:
-			#PutCardIntoDeck(0, cards[0])
-			#print("Cards ====> ", cards)
-			#print("Deck  ====> ", playerDeck.deck)
+func _process(delta):
+	if Input.is_action_just_pressed("testDraw"):
+		DrawTopCardToTable()
+		print("Cards ====> ", cards)
+		print("Deck  ====> ", playerDeck.deck)
+	if Input.is_action_just_pressed("testPut"):
+		if len(cards) > 0:
+			PutCardIntoDeck(0, cards[0])
+			print("Cards ====> ", cards)
+			print("Deck  ====> ", playerDeck.deck)
 
 
 func CleanList(list):
@@ -79,6 +79,8 @@ func DrawTopCardToTable():
 		newCard.global_position = playerDeck.GetSpawnGlobalPosition()
 		# Play animation of flipping from top of deck
 		newCard.RevealNewCard(playerDeck.GetSpawnGlobalPosition().y)
+		newCard.isOnDeck = true
+		playerDeck.currentlyShowingCard = true
 		newCard.OnDraw()
 	else:
 		print("No card to draw")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtrkts1c4sqdx"]
+
+[ext_resource type="PackedScene" uid="uid://dqvlstnjdqqah" path="res://Assets/Models/CandleHolder.glb" id="1_w6o8f"]
+[ext_resource type="Material" uid="uid://ctgcxtu0s6nnl" path="res://Assets/Art/Materials/Gold/GoldMaterial.tres" id="2_54pct"]
+
+[node name="CandleHolder" instance=ExtResource("1_w6o8f")]
+
+[node name="Cylinder" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_54pct")

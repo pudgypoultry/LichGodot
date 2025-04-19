@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv0h8s1q506ot"]
+
+[ext_resource type="PackedScene" uid="uid://d1sldthb5645k" path="res://Assets/Models/CandleWick.glb" id="1_kfru5"]
+[ext_resource type="Material" uid="uid://de0i4s4vyd0jh" path="res://Assets/Models/CandleWick.tres" id="2_i07o8"]
+
+[node name="CandleWick" instance=ExtResource("1_kfru5")]
+
+[node name="Icosphere" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_i07o8")

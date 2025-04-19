@@ -2,6 +2,8 @@ extends Node3D
 
 class_name PlayerController
 
+enum CurrentMouseFocus {BOARD, HUD, FREELOOK}
+
 var camera_speed = .5
 var camera_scroll_speed = 0.7
 var camera_move_speed = .1
@@ -14,6 +16,7 @@ var currentMousePosition : Vector3 = Vector3(0,0,0)
 var currentInteractable : Interactable
 var hasNewFocus : bool = false
 var hasLeftCard : bool = false
+var playerActionable : bool = true
 
 @export var cam : Camera3D
 @export var mouseRay : RayCast3D

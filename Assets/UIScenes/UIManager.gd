@@ -4,8 +4,8 @@ class_name UIManager
 
 @export var nameLabel : Label
 @export var descriptionLabel : Label
-@export var typeLabels: Array[Label]
-
+@export var typeLabels : Array[Label]
+@export var cardDisplay : CardDisplay
 
 func _ready():
 	BoardManager.playerUI = self
@@ -43,7 +43,7 @@ func ShowNewCard(newCard : Card):
 	UpdateTags(newCard.cardTags)
 
 
-func UpdateTags(tags : Array[String]):
+func UpdateTags(tags : Array):
 	var numTags = len(tags)
 	for i in range(len(typeLabels)):
 		if i < numTags:

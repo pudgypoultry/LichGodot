@@ -15,7 +15,7 @@ var currentTimeLeft : float
 func _process(delta):
 	if currentlyActive:
 		currentTimeLeft = timer.get_time_left()
-		print(currentTimeLeft)
+		# print(currentTimeLeft)
 		stopwatch.text = str(int(currentTimeLeft))
 		progressCircle.value = currentTimeLeft
 		if currentTimeLeft <= 0:

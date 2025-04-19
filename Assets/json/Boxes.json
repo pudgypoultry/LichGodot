@@ -2,7 +2,9 @@
   "Sacrificial Altar": {
 	"NAME": "Sacrificial Altar",
 	"DESCRIPTION": "Sacrifices must be made.",
-	"VALID_COMBOS": [2],
+	"VALID_COMBOS": [
+			["Death"]
+		],
 	"RESULT_ARRAY": [
 			["Card:Death"]
 		],
@@ -14,8 +16,8 @@
 	"NAME": "TestBoxGroup",
 	"DESCRIPTION": "This is a test. This test should work. If the test works we're all good.",
 	"VALID_COMBOS": [
-			1, 
-			2
+			["Cough", "Fever"],
+			["Death", "Death"]
 		],
 	"RESULT_ARRAY": 
 		[

@@ -1,11 +1,13 @@
-[gd_resource type="VisualShader" load_steps=31 format=3 uid="uid://dueo30iybhxbn"]
+[gd_resource type="VisualShader" load_steps=33 format=3 uid="uid://dueo30iybhxbn"]
+
+[ext_resource type="Texture2D" uid="uid://cwx7330yxqf1j" path="res://Assets/Shaders/Fire01.png" id="1_u5stl"]
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_fc28j"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(1, 1, 1, 1), 2, Quaternion(0.5, 0.5, 0.5, 0.5)]
 op_type = 5
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_p1lo3"]
-parameter_name = "FloatParameter"
+parameter_name = "DissolveMix"
 hint = 1
 
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_akwe3"]
@@ -51,7 +53,7 @@ op_type = 0
 operator = 2
 
 [sub_resource type="VisualShaderNodeIntParameter" id="VisualShaderNodeIntParameter_o22rg"]
-parameter_name = "IntParameter"
+parameter_name = "Stuttering"
 default_value_enabled = true
 default_value = 5
 
@@ -70,7 +72,9 @@ op_type = 0
 operator = 2
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_ijey7"]
-parameter_name = "FloatParameter2"
+parameter_name = "WaveyOffset"
+hint = 1
+min = -1.0
 default_value_enabled = true
 default_value = 0.03
 
@@ -92,6 +96,9 @@ source = 5
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5eysv"]
 input_name = "time"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_k7wnu"]
+texture = ExtResource("1_u5stl")
 
 [sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_qm61g"]
 default_input_values = [0, Quaternion(0, 0, 0, 0)]
@@ -125,13 +132,14 @@ keep_scale = true
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
-uniform int IntParameter = 5;
-uniform float FloatParameter2 = 0.02999999932945;
+uniform int Stuttering = 5;
+uniform float WaveyOffset : hint_range(-1, 1) = 0.02999999932945;
+uniform sampler2D tex_frg_31;
 uniform sampler2D MainTex;
 uniform vec2 DissolveTiling = vec2(1.000000, 1.000000);
 uniform vec2 DissolveSpeed = vec2(0.000000, 0.000000);
 uniform sampler2D DissolveTexture;
-uniform float FloatParameter : hint_range(0, 1);
+uniform float DissolveMix : hint_range(0, 1);
 
 
 
@@ -167,7 +175,7 @@ void fragment() {
 
 
 // IntParameter:22
-	int n_out22p0 = IntParameter;
+	int n_out22p0 = Stuttering;
 
 
 // VectorOp:21
@@ -191,7 +199,7 @@ void fragment() {
 
 
 // FloatParameter:26
-	float n_out26p0 = FloatParameter2;
+	float n_out26p0 = WaveyOffset;
 
 
 // VectorOp:25
@@ -208,9 +216,13 @@ void fragment() {
 	vec4 n_out28p0 = vec4(n_out27p0.x, n_out20p1, n_in28p2, n_in28p3);
 
 
+// Texture2D:31
+	vec4 n_out31p0 = texture(tex_frg_31, vec2(n_out28p0.xy));
+
+
 	vec4 n_out3p0;
 // Texture2D:3
-	n_out3p0 = texture(MainTex, vec2(n_out28p0.xy));
+	n_out3p0 = texture(MainTex, vec2(n_out31p0.xy));
 
 
 // Input:17
@@ -252,7 +264,7 @@ void fragment() {
 
 
 // FloatParameter:11
-	float n_out11p0 = FloatParameter;
+	float n_out11p0 = DissolveMix;
 
 
 // Mix:10
@@ -277,14 +289,14 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-1003.93, 17.7102)
+graph_offset = Vector2(-243, 112)
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_gbtyy")
 nodes/vertex/2/position = Vector2(-140, 420)
 nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_cempa")
 nodes/fragment/2/position = Vector2(-2000, 240)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_ll5ds")
-nodes/fragment/3/position = Vector2(-1340, 420)
+nodes/fragment/3/position = Vector2(-1340, 440)
 nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_qm61g")
 nodes/fragment/4/position = Vector2(-180, 560)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_v45cd")
@@ -322,7 +334,7 @@ nodes/fragment/20/position = Vector2(-3100, -420)
 nodes/fragment/21/node = SubResource("VisualShaderNodeVectorOp_jydnt")
 nodes/fragment/21/position = Vector2(-3120, -80)
 nodes/fragment/22/node = SubResource("VisualShaderNodeIntParameter_o22rg")
-nodes/fragment/22/position = Vector2(-3420, -100)
+nodes/fragment/22/position = Vector2(-3440, 20)
 nodes/fragment/23/node = SubResource("VisualShaderNodeVectorOp_hnwfb")
 nodes/fragment/23/position = Vector2(-2940, -220)
 nodes/fragment/24/node = SubResource("VisualShaderNodeFloatFunc_vw3fo")
@@ -339,4 +351,6 @@ nodes/fragment/29/node = SubResource("VisualShaderNodeVectorOp_vjb02")
 nodes/fragment/29/position = Vector2(-2740, 0)
 nodes/fragment/30/node = SubResource("VisualShaderNodeInput_5eysv")
 nodes/fragment/30/position = Vector2(-3140, 160)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 3, 0, 1, 5, 0, 6, 0, 6, 0, 0, 0, 6, 0, 4, 0, 7, 0, 8, 2, 3, 0, 9, 0, 8, 0, 9, 1, 3, 0, 10, 0, 9, 0, 10, 1, 10, 0, 6, 1, 11, 0, 10, 2, 12, 0, 8, 0, 14, 0, 15, 0, 13, 0, 15, 1, 15, 0, 12, 2, 17, 0, 18, 0, 16, 0, 18, 1, 18, 0, 12, 0, 19, 0, 20, 0, 20, 1, 21, 0, 22, 0, 21, 1, 21, 0, 23, 1, 20, 1, 23, 0, 24, 0, 25, 0, 26, 0, 25, 1, 25, 0, 27, 1, 20, 0, 27, 0, 20, 1, 28, 1, 27, 0, 28, 0, 28, 0, 3, 0, 23, 0, 29, 0, 29, 0, 24, 0, 30, 0, 29, 1)
+nodes/fragment/31/node = SubResource("VisualShaderNodeTexture_k7wnu")
+nodes/fragment/31/position = Vector2(-1400, 80)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 5, 0, 6, 0, 6, 0, 4, 0, 7, 0, 8, 2, 8, 0, 9, 1, 9, 0, 10, 1, 10, 0, 6, 1, 11, 0, 10, 2, 12, 0, 8, 0, 14, 0, 15, 0, 13, 0, 15, 1, 15, 0, 12, 2, 17, 0, 18, 0, 16, 0, 18, 1, 18, 0, 12, 0, 19, 0, 20, 0, 20, 1, 21, 0, 22, 0, 21, 1, 21, 0, 23, 1, 20, 1, 23, 0, 24, 0, 25, 0, 26, 0, 25, 1, 25, 0, 27, 1, 20, 0, 27, 0, 20, 1, 28, 1, 27, 0, 28, 0, 23, 0, 29, 0, 29, 0, 24, 0, 30, 0, 29, 1, 4, 3, 0, 1, 3, 0, 9, 0, 3, 0, 10, 0, 28, 0, 31, 0, 6, 0, 0, 0, 31, 0, 3, 0)

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwpqhkax2v1uk"
-path.s3tc="res://.godot/imported/Voronoi01.png-28e993c65491871ee8be94301a286aa2.s3tc.ctex"
+uid="uid://3tx30q8ips52"
+path.s3tc="res://.godot/imported/GoldMaterial_normal.png-ac1e4e7b9fc8e55d1067cec053e0f906.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Shaders/Voronoi01.png"
-dest_files=["res://.godot/imported/Voronoi01.png-28e993c65491871ee8be94301a286aa2.s3tc.ctex"]
+source_file="res://Assets/Art/Materials/Gold/GoldMaterial_normal.png"
+dest_files=["res://.godot/imported/GoldMaterial_normal.png-ac1e4e7b9fc8e55d1067cec053e0f906.s3tc.ctex"]
 
 [params]
 
@@ -24,8 +24,8 @@ compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Assets/Models/GoldMaterial_normal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

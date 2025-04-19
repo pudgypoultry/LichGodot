@@ -19,15 +19,17 @@ func IsValidCombo(boxArray : Array[Box]):
 
 
 func HandleResult(currentProduct : int):
-	var cardMesh : MeshInstance3D = slottedCards[boxes[0]].cardMesh
-	cardMesh.get_active_material(0).set_next_pass(consumptionShader)
-	cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("enable_dissolve_animation", true)
-	fireParticles.StartMe()
-	for i in range(500):
-		await get_tree().create_timer(0.01).timeout
-		cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("animation_intensity", float(i)/300.0)
-		cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("dissolveSlider", 1.5 - float(i)/100.0)
-		print(cardMesh.get_active_material(0).get_next_pass().get_shader_parameter("animation_intensity"))
+	if boxes[0].hasCard:
+		var cardMesh : MeshInstance3D = slottedCards[boxes[0]].cardMesh
+		cardMesh.get_active_material(0).set_next_pass(consumptionShader)
+		cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("enable_dissolve_animation", true)
+		fireParticles.StartMe()
+		# Make it last 5 seconds
+		for i in range(500):
+			await get_tree().create_timer(0.01).timeout
+			cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("animation_intensity", float(i)/300.0)
+			cardMesh.get_active_material(0).get_next_pass().set_shader_parameter("dissolveSlider", 1.5 - float(i)/100.0)
+			# print(cardMesh.get_active_material(0).get_next_pass().get_shader_parameter("animation_intensity"))
 
-	#await get_tree().create_timer(3).timeout
-	#slottedCards[boxes[0]].OnUse()
+		#await get_tree().create_timer(3).timeout
+		#slottedCards[boxes[0]].OnUse()

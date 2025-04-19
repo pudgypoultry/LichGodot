@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://k2ehcsaqfgwv"]
+
+[ext_resource type="Script" path="res://Assets/UIScenes/UICardWindow.gd" id="1_bj2fr"]
+
+[node name="CardFace" type="TextureRect"]
+custom_minimum_size = Vector2(252, 404)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+script = ExtResource("1_bj2fr")
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

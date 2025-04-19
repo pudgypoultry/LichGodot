@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl861ea18o43q"]
+
+[ext_resource type="PackedScene" uid="uid://b2at3fsdbicr" path="res://Assets/Models/Candle.glb" id="1_ws2sl"]
+[ext_resource type="Material" path="res://Assets/Models/CandleWax.tres" id="2_t5v1n"]
+
+[node name="Candle" instance=ExtResource("1_ws2sl")]
+
+[node name="Icosphere" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_t5v1n")

@@ -1,10 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu126crb7hj2h"]
+[gd_scene load_steps=16 format=3 uid="uid://bu126crb7hj2h"]
 
 [ext_resource type="PackedScene" uid="uid://c0iuor28kxsb2" path="res://Assets/PlayerController/PlayerController.tscn" id="3_vl382"]
 [ext_resource type="PackedScene" uid="uid://b4u7jvxpxt5oo" path="res://Scenes/StoneAltarComplete.tscn" id="4_feate"]
 [ext_resource type="PackedScene" uid="uid://cglbm82ojc4ga" path="res://Assets/UIScenes/PlayerUI.tscn" id="5_acfmy"]
 [ext_resource type="PackedScene" uid="uid://bft35o40fty53" path="res://Assets/Cards/Minions/Goblin/Card_Goblin.tscn" id="5_qa0ou"]
+[ext_resource type="PackedScene" uid="uid://dtrkts1c4sqdx" path="res://Scenes/CandleHolder.tscn" id="6_1ujk8"]
+[ext_resource type="PackedScene" uid="uid://bl861ea18o43q" path="res://Assets/Models/Candle.tscn" id="7_mrhr7"]
+[ext_resource type="PackedScene" uid="uid://bv0h8s1q506ot" path="res://Assets/Models/CandleWick.tscn" id="8_hn8jm"]
 [ext_resource type="PackedScene" uid="uid://dr1ledwxbgy8y" path="res://DeckTest.tscn" id="8_k8thd"]
+[ext_resource type="PackedScene" uid="uid://djhi6elh33j7n" path="res://Scenes/CandleSnuffer.tscn" id="9_8kawf"]
 
 [sub_resource type="Environment" id="Environment_5uj17"]
 ambient_light_source = 2
@@ -20,7 +24,7 @@ size = Vector3(1, 0.2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_a4kq7"]
 size = Vector3(1, 0.1, 1)
 
-[sub_resource type="Shader" id="Shader_lfhf1"]
+[sub_resource type="Shader" id="Shader_vdwop"]
 resource_local_to_scene = true
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx;
@@ -189,7 +193,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mcp7i"]
 resource_local_to_scene = true
 render_priority = 0
-shader = SubResource("Shader_lfhf1")
+shader = SubResource("Shader_vdwop")
 shader_parameter/baseColor = Color(0, 0, 0, 1)
 shader_parameter/dissolveSlider = 1.5
 shader_parameter/dissolveNoiseScale = 2.0
@@ -236,6 +240,30 @@ transform = Transform3D(0.442864, 0, 0, 0, 0.442864, 0, 0, 0, 0.442864, 3.54306,
 consumptionShader = SubResource("ShaderMaterial_mcp7i")
 
 [node name="Goblin" parent="." instance=ExtResource("5_qa0ou")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.149188, 2.78031)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.109301, 0)
+
+[node name="CandleHolder" parent="." instance=ExtResource("6_1ujk8")]
+transform = Transform3D(0.105745, 0, 0, 0, 0.105745, 0, 0, 0, 0.105745, 4.34215, 0.097163, 0.759115)
+
+[node name="Candle" parent="CandleHolder" instance=ExtResource("7_mrhr7")]
+transform = Transform3D(1.21643, 0, 0, 0, 1.21643, 0, 0, 0, 1.21643, 0, 5.48949, 0)
+
+[node name="CandleWick" parent="CandleHolder/Candle" instance=ExtResource("8_hn8jm")]
+transform = Transform3D(0.0763895, 0, 0, 0, 0.111983, 0, 0, 0, 0.0763895, 0, 5.0048, 0)
+
+[node name="LightSource" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.86323, 3.84421, 1.88007)
+light_color = Color(1, 0.661361, 0.586306, 1)
+omni_range = 10.1211
+omni_attenuation = 0.25
+
+[node name="LightSource2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.24279, 3.84421, 1.88007)
+light_color = Color(1, 0.661361, 0.586306, 1)
+omni_range = 10.1211
+omni_attenuation = 0.25
+
+[node name="SnufferHandle" parent="." instance=ExtResource("9_8kawf")]
+transform = Transform3D(-0.344822, 0.0153757, -0.729013, 0.00560327, 0.80645, 0.0143586, 0.729154, 0.001074, -0.344866, 1.00162, 0.105285, 2.89878)
 
 [editable path="PlayerController"]

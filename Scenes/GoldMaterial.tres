@@ -1,0 +1,82 @@
+[gd_resource type="VisualShader" load_steps=9 format=3 uid="uid://c3c4btpl358hf"]
+
+[sub_resource type="Gradient" id="Gradient_h3w1q"]
+offsets = PackedFloat32Array(0.316854, 0.665169)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lieew"]
+gradient = SubResource("Gradient_h3w1q")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_7f4uj"]
+texture = SubResource("GradientTexture2D_lieew")
+texture_type = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pve2f"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1nmc4"]
+texture = SubResource("NoiseTexture2D_pve2f")
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_m3qjv"]
+parameter_name = "Albedo"
+default_value_enabled = true
+default_value = Color(0.8, 0.411765, 0.0392157, 1)
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_jy4jl"]
+parameter_name = "Metallic"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_ah1bn"]
+parameter_name = "Specular"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 Albedo : source_color = vec4(0.800000, 0.411765, 0.039216, 1.000000);
+uniform float Metallic;
+uniform sampler2D tex_frg_3;
+uniform sampler2D tex_frg_2 : source_color;
+uniform float Specular;
+
+
+
+void fragment() {
+// ColorParameter:4
+	vec4 n_out4p0 = Albedo;
+
+
+// FloatParameter:5
+	float n_out5p0 = Metallic;
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, vec2(n_out3p0.xy));
+
+
+// FloatParameter:6
+	float n_out6p0 = Specular;
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0.xyz);
+	METALLIC = n_out5p0;
+	ROUGHNESS = n_out2p0.x;
+	SPECULAR = n_out6p0;
+
+
+}
+"
+graph_offset = Vector2(-590.713, 105.04)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_7f4uj")
+nodes/fragment/2/position = Vector2(-320, 420)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_1nmc4")
+nodes/fragment/3/position = Vector2(-860, 300)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_m3qjv")
+nodes/fragment/4/position = Vector2(-360, -80)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_jy4jl")
+nodes/fragment/5/position = Vector2(-360, 200)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_ah1bn")
+nodes/fragment/6/position = Vector2(-360, 740)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 3, 3, 0, 2, 0, 4, 0, 0, 0, 5, 0, 0, 2, 6, 0, 0, 4)

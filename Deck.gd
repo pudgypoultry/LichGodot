@@ -3,6 +3,7 @@ extends Node
 class_name Deck
 @export var deckVisual : DeckVisual
 @export var deck : Array[String]
+var currentlyShowingCard : bool = false
 var originalSize : int
 var deckSize : int
 var lastSize : int
@@ -39,15 +40,18 @@ func CleanDeck():
 
 
 func DrawFromTop():
-	if len(deck) == 0:
-		return null
-	return deck.pop_front()
+	if !currentlyShowingCard:
+		if len(deck) == 0:
+			return null
+		return deck.pop_front()
 
 func DrawFromBottom():
-	return deck.pop_back()
+	if !currentlyShowingCard:
+		return deck.pop_back()
 
 func DrawFromPosition(pos : int):
-	return deck.pop_at(pos)
+	if !currentlyShowingCard:
+		return deck.pop_at(pos)
 
 func ShuffleDeck():
 	deck.shuffle()
@@ -79,10 +83,17 @@ func InsertCardAtPosition(where : int, card : String):
 		deck.insert(where, card)
 
 
-func CountType(whatType : Card.CardType):
+func RemoveCardAtPosition(where : int):
+	deck.remove_at(where)
+
+"""=====================================================
+Counting and Finding
+====================================================="""
+
+func CountType(whatType : String):
 	var count = 0
 	for card in deck:
-		if JSONAndLoadHandler.cardTagsDict[card] == whatType:
+		if JSONAndLoadHandler.cardTagsDict[card].has(whatType):
 			count += 1
 	return count
 
@@ -95,5 +106,16 @@ func CountCopies(cardName : String):
 	return count
 
 
-func FirstInstance(whatCard : Card):
+func FirstInstance(whatCard : String):
 	return deck.find(whatCard)
+
+
+func FindFirstNonDeathCard():
+	var i = 0
+	for card in deck:
+		if JSONAndLoadHandler.cardTagsDict[card].has("Death"):
+			pass
+		else:
+			return i
+		i += 1
+	return -1
